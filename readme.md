@@ -1,5 +1,11 @@
 # Lightweight Java Plugin Framework
 
+## Description
+TODO
+
+## Features
+TODO
+
 ## TODO
 - Prepare examples
 - Tests
