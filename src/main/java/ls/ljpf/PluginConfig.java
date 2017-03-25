@@ -5,14 +5,14 @@ package ls.ljpf;
  */
 public class PluginConfig {
 
-    private String pluginDir;
+    private String pluginWorkDir;
 
-    public String getPluginDir() {
-        return pluginDir;
+    public String getPluginWorkDir() {
+        return pluginWorkDir;
     }
 
-    void setPluginDir(String pluginDir) {
-        this.pluginDir = pluginDir;
+    public void setPluginWorkDir(String pluginWorkDir) {
+        this.pluginWorkDir = pluginWorkDir;
     }
 
 }

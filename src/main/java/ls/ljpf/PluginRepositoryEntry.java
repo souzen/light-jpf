@@ -5,26 +5,20 @@ package ls.ljpf;
  */
 public class PluginRepositoryEntry {
 
-    private final String path;
-    private final PluginDescriptor pluginDescriptor;
-    private final PluginClasspath pluginClasspath;
+    private final PluginDescriptor descriptor;
+    private final PluginClasspath classpath;
 
-    public PluginRepositoryEntry(String path, PluginDescriptor pluginDescriptor, PluginClasspath pluginClasspath) {
-        this.path = path;
-        this.pluginDescriptor = pluginDescriptor;
-        this.pluginClasspath = pluginClasspath;
+    public PluginRepositoryEntry(PluginDescriptor descriptor, PluginClasspath classpath) {
+        this.descriptor = descriptor;
+        this.classpath = classpath;
     }
 
-    public String getPath() {
-        return path;
+    public PluginDescriptor getDescriptor() {
+        return descriptor;
     }
 
-    public PluginDescriptor getPluginDescriptor() {
-        return pluginDescriptor;
-    }
-
-    public PluginClasspath getPluginClasspath() {
-        return pluginClasspath;
+    public PluginClasspath getClasspath() {
+        return classpath;
     }
 
 }

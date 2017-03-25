@@ -7,14 +7,20 @@ import java.util.Collection;
  */
 public class PluginClasspath {
 
+    private final String path;
     private final Collection<String> dirs;
     private final Collection<String> jars;
     private final Collection<String> resources;
 
-    public PluginClasspath(Collection<String> dirs, Collection<String> jars, Collection<String> resources) {
+    public PluginClasspath(String path, Collection<String> dirs, Collection<String> jars, Collection<String> resources) {
+        this.path = path;
         this.dirs = dirs;
         this.jars = jars;
         this.resources = resources;
+    }
+
+    public String getPath() {
+        return path;
     }
 
     public Collection<String> getDirs() {
