@@ -7,8 +7,6 @@ import java.util.Properties;
  */
 public class PluginDescriptor {
 
-    public static final String FILE_EXT = ".*plugin";
-
     private final String id;
     private final String pluginClass;
 
@@ -23,25 +21,6 @@ public class PluginDescriptor {
 
     public String getPluginClass() {
         return pluginClass;
-    }
-
-    public static boolean valid(final Properties properties) {
-        return properties != null
-                && !properties.isEmpty()
-                && properties.containsKey("id")
-                && properties.containsKey("pluginClass");
-    }
-
-    public static PluginDescriptor parse(final Properties properties) {
-        String id = properties.getProperty("id");
-        String pluginClass = properties.getProperty("pluginClass");
-
-        if (null == id || null == pluginClass)
-            throw new PluginException(id, "Failed to parse plugin");
-
-        return new PluginDescriptor(
-                id,
-                pluginClass);
     }
 
 }

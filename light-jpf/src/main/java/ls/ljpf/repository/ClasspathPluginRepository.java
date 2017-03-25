@@ -16,7 +16,6 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.jar.JarFile;
@@ -41,35 +40,37 @@ public class ClasspathPluginRepository extends BasePluginRepository implements P
 
     public ClasspathPluginRepository(String pluginJarExt) {
         this.pluginJarExt = pluginJarExt;
-        if (!(ClassLoader.getSystemClassLoader() instanceof URLClassLoader))
-            return;
+        ClassLoader systemClassLoader = ClassLoader.getSystemClassLoader();
 
-        URLClassLoader cl = (URLClassLoader) ClassLoader.getSystemClassLoader();
+        if ((systemClassLoader instanceof URLClassLoader)) {
 
-        List<File> classpathUris = Lists.newArrayList();
-        for (URL url : cl.getURLs()) {
-            try {
-                final URI uri = url.toURI();
-                classpathUris.add(new File(uri));
-            } catch (URISyntaxException e) {
-                LOG.warn("Could not parse classpath element", e);
+            URLClassLoader cl = (URLClassLoader) systemClassLoader;
+
+            List<File> classpathUris = Lists.newArrayList();
+            for (URL url : cl.getURLs()) {
+                try {
+                    final URI uri = url.toURI();
+                    classpathUris.add(new File(uri));
+                } catch (URISyntaxException e) {
+                    LOG.warn("Could not parse classpath element", e);
+                }
             }
+
+            // extract classpath dirs if it was packed to jar file
+            classpathUris.addAll(loadPackedClasspathDirs(classpathUris).collect(toList()));
+
+            // Load other project dependencies from classes dir
+            classpathUris.stream()
+                    .filter(f -> f.isDirectory())
+                    .flatMap(this::loadDirEntries)
+                    .forEach(this::addEntry);
+
+            // Load jar file dependencies from classpath
+            classpathUris.stream()
+                    .filter(f -> f.isFile() && Pattern.matches(pluginJarExt, f.getPath()))
+                    .flatMap(this::loadJarEntries)
+                    .forEach(this::addEntry);
         }
-
-        // extract classpath dirs if it was packed to jar file
-        classpathUris.addAll(loadPackedClasspathDirs(classpathUris).collect(toList()));
-
-        // Load other project dependencies from classes dir
-        classpathUris.stream()
-                .filter(f -> f.isDirectory())
-                .flatMap(this::loadDirEntries)
-                .forEach(this::addEntry);
-
-        // Load jar file dependencies from classpath
-        classpathUris.stream()
-                .filter(f -> f.isFile() && Pattern.matches(pluginJarExt, f.getPath()))
-                .flatMap(this::loadJarEntries)
-                .forEach(this::addEntry);
     }
 
     private Stream<File> loadPackedClasspathDirs(List<File> dirs) {
@@ -122,10 +123,10 @@ public class ClasspathPluginRepository extends BasePluginRepository implements P
 
     private Stream<PluginDescriptor> getDirDescriptors(File file) {
         return stream(file.listFiles())
-                .filter(f -> Pattern.matches(PluginDescriptor.FILE_EXT, f.getName()))
+                .filter(f -> Pattern.matches(PluginDescriptorParser.FILE_EXT, f.getName()))
                 .map(this::parseDescriptorFile)
-                .filter(PluginDescriptor::valid)
-                .map(PluginDescriptor::parse);
+                .filter(PluginDescriptorParser::valid)
+                .map(PluginDescriptorParser::parse);
     }
 
     private Stream<PluginDescriptor> getJarDescriptors(File file) {
@@ -135,10 +136,10 @@ public class ClasspathPluginRepository extends BasePluginRepository implements P
             final JarFile jar = new JarFile(file);
 
             result = jar.stream()
-                    .filter(jarEntry -> Pattern.matches(PluginDescriptor.FILE_EXT, jarEntry.getName()))
+                    .filter(jarEntry -> Pattern.matches(PluginDescriptorParser.FILE_EXT, jarEntry.getName()))
                     .map(jarEntry -> parseDescriptorFile(jar, jarEntry))
-                    .filter(PluginDescriptor::valid)
-                    .map(PluginDescriptor::parse);
+                    .filter(PluginDescriptorParser::valid)
+                    .map(PluginDescriptorParser::parse);
 
         } catch (IOException e) {
             LOG.warn("Could not parse plugin descriptor {}", file.getAbsolutePath());

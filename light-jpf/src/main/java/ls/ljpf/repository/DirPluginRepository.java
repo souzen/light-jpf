@@ -47,10 +47,10 @@ public class DirPluginRepository extends BasePluginRepository implements PluginR
 
     private Stream<PluginRepositoryEntry> loadExternalDirEntries(File file) {
         return stream(file.listFiles())
-                .filter(f -> Pattern.matches(PluginDescriptor.FILE_EXT, f.getName()))
+                .filter(f -> Pattern.matches(PluginDescriptorParser.FILE_EXT, f.getName()))
                 .map(this::parseDescriptorFile)
-                .filter(PluginDescriptor::valid)
-                .map(PluginDescriptor::parse)
+                .filter(PluginDescriptorParser::valid)
+                .map(PluginDescriptorParser::parse)
                 .map(descriptor -> new PluginRepositoryEntry(descriptor, getPluginClasspath(file)));
     }
 
