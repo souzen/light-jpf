@@ -2,8 +2,15 @@
 
 ## TODO
 - Prepare examples
+- Tests
 - Propose build plugin for maven
 - licence?
 - maven central
-- plugin path 
+
+## Refactor
+- dependency resolver
+- plugin versioning
+- plugin path in config
+- dir repository - hardocoded lib
+- review ClasspathPluginRepository
 
