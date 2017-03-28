@@ -10,6 +10,7 @@
 
     <modules>
         <module>light-jpf</module>
+        <module>version</module>
     </modules>
 
     <properties>
