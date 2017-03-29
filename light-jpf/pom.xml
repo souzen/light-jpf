@@ -33,6 +33,11 @@
             <artifactId>guava</artifactId>
             <version>${guava.version}</version>
         </dependency>
+        <dependency>
+            <groupId>ls.ljpf</groupId>
+            <artifactId>versions</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
 </project>

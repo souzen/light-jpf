@@ -20,8 +20,6 @@ import static java.util.Arrays.stream;
  */
 public class DirPluginRepository extends BasePluginRepository implements PluginRepository {
 
-    public static final String PLUGIN_DEPENDENCY_DIR = "lib";
-
     private final String path;
 
     public DirPluginRepository(final File file) {
@@ -47,7 +45,7 @@ public class DirPluginRepository extends BasePluginRepository implements PluginR
 
     private Stream<PluginRepositoryEntry> loadExternalDirEntries(File file) {
         return stream(file.listFiles())
-                .filter(f -> Pattern.matches(PluginDescriptorParser.FILE_EXT, f.getName()))
+                .filter(f -> Pattern.matches(BasePluginRepository.FILE_EXT, f.getName()))
                 .map(this::parseDescriptorFile)
                 .filter(PluginDescriptorParser::valid)
                 .map(PluginDescriptorParser::parse)

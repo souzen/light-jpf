@@ -123,7 +123,7 @@ public class ClasspathPluginRepository extends BasePluginRepository implements P
 
     private Stream<PluginDescriptor> getDirDescriptors(File file) {
         return stream(file.listFiles())
-                .filter(f -> Pattern.matches(PluginDescriptorParser.FILE_EXT, f.getName()))
+                .filter(f -> Pattern.matches(BasePluginRepository.FILE_EXT, f.getName()))
                 .map(this::parseDescriptorFile)
                 .filter(PluginDescriptorParser::valid)
                 .map(PluginDescriptorParser::parse);
@@ -136,7 +136,7 @@ public class ClasspathPluginRepository extends BasePluginRepository implements P
             final JarFile jar = new JarFile(file);
 
             result = jar.stream()
-                    .filter(jarEntry -> Pattern.matches(PluginDescriptorParser.FILE_EXT, jarEntry.getName()))
+                    .filter(jarEntry -> Pattern.matches(BasePluginRepository.FILE_EXT, jarEntry.getName()))
                     .map(jarEntry -> parseDescriptorFile(jar, jarEntry))
                     .filter(PluginDescriptorParser::valid)
                     .map(PluginDescriptorParser::parse);

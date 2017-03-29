@@ -21,6 +21,10 @@ import java.util.jar.JarFile;
  */
 public class BasePluginRepository implements PluginRepository {
 
+    //TODO: Move this properties to more appropriate place
+    public static final String FILE_EXT = ".*plugin";
+    public static final String PLUGIN_DEPENDENCY_DIR = "lib";
+
     private static final Logger LOG = LoggerFactory.getLogger(BasePluginRepository.class.getSimpleName());
 
     private final Map<String, PluginRepositoryEntry> repositoryEntryMap;

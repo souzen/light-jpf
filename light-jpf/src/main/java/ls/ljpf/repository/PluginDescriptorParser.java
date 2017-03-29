@@ -2,15 +2,15 @@ package ls.ljpf.repository;
 
 import ls.ljpf.PluginDescriptor;
 import ls.ljpf.PluginException;
+import versions.Version;
 
+import java.util.Objects;
 import java.util.Properties;
 
 /**
  * Created by souzen on 25.03.2017.
  */
 public class PluginDescriptorParser {
-
-    public static final String FILE_EXT = ".*plugin";
 
     public static boolean valid(final Properties properties) {
         return properties != null
@@ -21,14 +21,16 @@ public class PluginDescriptorParser {
 
     public static PluginDescriptor parse(final Properties properties) {
         String id = properties.getProperty("id");
+        String versionProperty = properties.getProperty("version");
         String pluginClass = properties.getProperty("pluginClass");
+        String description = properties.getProperty("description");
 
-        if (null == id || null == pluginClass)
-            throw new PluginException(id, "Failed to parse plugin");
+        if (Objects.isNull(id) || Objects.isNull(versionProperty) || Objects.isNull(pluginClass))
+            throw new PluginException(id, "Invalid descriptor file");
 
-        return new PluginDescriptor(
-                id,
-                pluginClass);
+        Version version = Version.parse(versionProperty);
+
+        return new PluginDescriptor(id, version, pluginClass, description);
     }
 
 }
