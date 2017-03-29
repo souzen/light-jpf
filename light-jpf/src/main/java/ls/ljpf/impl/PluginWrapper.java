@@ -9,7 +9,7 @@ import java.lang.reflect.Constructor;
  */
 class PluginWrapper {
 
-    enum State {
+    private enum State {
         CREATED,
         INITIALIZED,
         LOADED,
@@ -27,10 +27,6 @@ class PluginWrapper {
         this.descriptor = descriptor;
         this.classpath = classpath;
         this.classLoader = classLoader;
-    }
-
-    public State getState() {
-        return state;
     }
 
     public PluginDescriptor getDescriptor() {
