@@ -3,14 +3,11 @@ package ls.ljpf.impl;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import ls.ljpf.*;
-import ls.ljpf.loader.ParentFirstClassLoaderFactory;
+import ls.ljpf.loader.ParentLastClassLoaderFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 import static java.util.stream.Collectors.toList;
 
@@ -27,7 +24,7 @@ public class DefaultPluginManager implements PluginManager {
     private final Collection<PluginWrapper> loadedPlugins;
 
     public DefaultPluginManager(PluginRepository repository) {
-        this(repository, new ParentFirstClassLoaderFactory());
+        this(repository, new ParentLastClassLoaderFactory());
     }
 
     public DefaultPluginManager(PluginRepository repository, PluginClassLoaderFactory pluginClassLoaderFactory) {
@@ -70,7 +67,7 @@ public class DefaultPluginManager implements PluginManager {
 
         loadedPlugins.add(pluginWrapper);
 
-        LOG.debug("Plugin Loaded: {}", id);
+        LOG.debug("Plugin Loaded: {}", pluginWrapper.getDescriptor());
     }
 
     @Override
@@ -80,18 +77,15 @@ public class DefaultPluginManager implements PluginManager {
 
         loadedPlugins.remove(pluginWrapper);
 
-        LOG.debug("Plugin Unloaded: {}", id);
+        LOG.debug("Plugin Unloaded: {}", pluginWrapper.getDescriptor());
     }
 
     @Override
     public void unloadAll() {
-        pluginWrappers.entrySet().stream()
-                .filter(e -> e.getValue().getState().equals(PluginWrapper.State.LOADED))
-                .map(e -> e.getKey())
-                .collect(toList())
+        loadedPlugins.stream()
+                .map(PluginWrapper::getDescriptor)
+                .map(PluginDescriptor::getId)
                 .forEach(this::unload);
-
-        pluginWrappers.clear();
     }
 
     PluginWrapper getPluginWrapper(final String id) {

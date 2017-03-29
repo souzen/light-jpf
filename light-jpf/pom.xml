@@ -10,6 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>light-jpf</artifactId>
+    <description>Lightweight Java Plugin Framework</description>
 
     <properties>
         <slf4j-api.version>1.7.25</slf4j-api.version>

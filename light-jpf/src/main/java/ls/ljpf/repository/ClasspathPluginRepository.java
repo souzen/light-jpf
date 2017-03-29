@@ -75,6 +75,8 @@ public class ClasspathPluginRepository extends BasePluginRepository implements P
 
     private Stream<File> loadPackedClasspathDirs(List<File> dirs) {
         try {
+            // Intellij patch
+
             for (int i = 0; i < dirs.size(); i++) {
                 File file = dirs.get(i);
                 final Path path = file.toPath();
@@ -95,30 +97,26 @@ public class ClasspathPluginRepository extends BasePluginRepository implements P
             }
 
         } catch (IOException e) {
-            LOG.error("Couldn't load packed classpath dirs {}", e.getMessage());
+            LOG.warn("Couldn't load packed classpath dirs {}", e.getMessage());
         }
 
         return Stream.empty();
     }
 
     private Stream<PluginRepositoryEntry> loadDirEntries(File file) {
-        PluginClasspath classpath = new PluginClasspath(
+        return getDirDescriptors(file).map(descriptor -> new PluginRepositoryEntry(descriptor, new PluginClasspath(
                 file.getPath(),
                 Lists.newArrayList(file.getPath()),
                 Collections.EMPTY_LIST,
-                Collections.EMPTY_LIST);
-
-        return getDirDescriptors(file).map(descriptor -> new PluginRepositoryEntry(descriptor, classpath));
+                Collections.EMPTY_LIST)));
     }
 
     private Stream<PluginRepositoryEntry> loadJarEntries(File file) {
-        PluginClasspath classpath = new PluginClasspath(
+        return getJarDescriptors(file).map(descriptor -> new PluginRepositoryEntry(descriptor, new PluginClasspath(
                 file.getPath(),
                 Collections.EMPTY_LIST,
                 Lists.newArrayList(file.getPath()),
-                Collections.EMPTY_LIST);
-
-        return getJarDescriptors(file).map(descriptor -> new PluginRepositoryEntry(descriptor, classpath));
+                Collections.EMPTY_LIST)));
     }
 
     private Stream<PluginDescriptor> getDirDescriptors(File file) {

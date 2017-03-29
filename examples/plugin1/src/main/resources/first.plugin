@@ -1,0 +1,4 @@
+id=FirstPlugin
+version=0.0.1
+pluginClass=ls.ljpf.examples.plugin.FirstPlugin
+description=First Example

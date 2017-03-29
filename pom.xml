@@ -5,12 +5,13 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>ls.ljpf</groupId>
     <artifactId>light-jpf-parent</artifactId>
-    <packaging>pom</packaging>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
     <modules>
         <module>light-jpf</module>
-        <module>version</module>
+        <module>examples</module>
+        <module>versions</module>
     </modules>
 
     <properties>
@@ -30,11 +31,6 @@
                     <target>${java.version}</target>
                     <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-release-plugin</artifactId>
-                <version>2.5.3</version>
             </plugin>
         </plugins>
     </build>

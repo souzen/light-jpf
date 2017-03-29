@@ -34,4 +34,12 @@ public class PluginDescriptor {
     public String getDescription() {
         return description;
     }
+
+    @Override
+    public String toString() {
+        return "Plugin{" +
+                "id='" + id + '\'' +
+                ", version=" + version +
+                '}';
+    }
 }
