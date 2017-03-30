@@ -2,17 +2,14 @@ package ls.ljpf.examples.app;
 
 import ls.ljpf.PluginClassLoaderFactory;
 import ls.ljpf.PluginManager;
-import ls.ljpf.PluginRepository;
 import ls.ljpf.examples.common.ExampleConfig;
 import ls.ljpf.impl.DefaultPluginManager;
 import ls.ljpf.loader.ParentLastClassLoaderFactory;
 import ls.ljpf.repository.ClasspathPluginRepository;
 import ls.ljpf.repository.DirPluginRepository;
+import ls.ljpf.repository.MultiPluginRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.File;
-import java.nio.file.Paths;
 
 /**
  * Created by souzen on 29.03.2017.
@@ -26,16 +23,9 @@ public class App {
     public void init() {
         LOG.info("Initializing... {}");
 
-        // TODO: Simplify code below
-        PluginRepository pluginRepository;
-
-        final File pluginsDir = Paths.get("plugins").toFile();
-
-        if (pluginsDir.exists()) {
-            pluginRepository = new DirPluginRepository("plugins");
-        } else {
-            pluginRepository = new ClasspathPluginRepository(".*ls.ljpf.examples.*jar");
-        }
+        MultiPluginRepository pluginRepository = new MultiPluginRepository();
+        pluginRepository.addRepository(new ClasspathPluginRepository(".*ls.ljpf.examples.*jar"));
+        pluginRepository.addRepository(new DirPluginRepository("plugins"));
 
         PluginClassLoaderFactory classLoaderFactory = new ParentLastClassLoaderFactory();
 

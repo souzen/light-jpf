@@ -32,8 +32,6 @@ public class DirPluginRepository extends BasePluginRepository implements PluginR
 
     public DirPluginRepository(final File file) {
         try {
-            LOG.debug("Loading plugins from directory: " + file.getAbsolutePath());
-
             this.path = file.getCanonicalPath();
 
         } catch (IOException e) {
@@ -42,8 +40,12 @@ public class DirPluginRepository extends BasePluginRepository implements PluginR
 
         File dir = Paths.get(path).toFile();
 
-        if (!dir.exists() || !dir.isDirectory())
-            throw new IllegalArgumentException("Plugin repository dir does not exists");
+        if (!dir.exists() || !dir.isDirectory()) {
+            LOG.warn("Dir Plugin Repository not found {}", dir.getAbsolutePath());
+            return;
+        }
+
+        LOG.debug("Loading plugins from directory: " + file.getAbsolutePath());
 
         final File[] files = dir.listFiles();
 
