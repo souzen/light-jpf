@@ -10,8 +10,8 @@
 
     <modules>
         <module>light-jpf</module>
+        <module>light-jpf-maven-plugin</module>
         <module>examples</module>
-        <module>versions</module>
     </modules>
 
     <properties>
