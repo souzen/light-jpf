@@ -1,4 +1,4 @@
 id=SecondPlugin
-version=0.0.1
+version=${project.version}
 pluginClass=ls.ljpf.examples.plugin.SecondPlugin
 description=Second Example

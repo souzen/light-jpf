@@ -7,9 +7,8 @@ TODO
 TODO
 
 ## TODO
-- Prepare examples
-- Tests
 - Propose build plugin for maven
+- Tests
 - licence?
 - maven central
 
