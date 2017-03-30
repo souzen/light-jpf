@@ -2,7 +2,6 @@ package ls.ljpf.repository;
 
 import com.google.common.collect.Lists;
 import ls.ljpf.PluginClasspath;
-import ls.ljpf.PluginDescriptor;
 import ls.ljpf.PluginRepository;
 import ls.ljpf.PluginRepositoryEntry;
 import org.slf4j.Logger;
@@ -12,7 +11,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import static java.util.Arrays.stream;
@@ -23,6 +21,8 @@ import static java.util.Arrays.stream;
 public class DirPluginRepository extends BasePluginRepository implements PluginRepository {
 
     private static final Logger LOG = LoggerFactory.getLogger(DirPluginRepository.class.getSimpleName());
+
+    private static final String PLUGIN_LIB_DIR = "lib";
 
     private final String path;
 
@@ -56,7 +56,7 @@ public class DirPluginRepository extends BasePluginRepository implements PluginR
 
     private Stream<PluginRepositoryEntry> loadExternalDirEntries(File file) {
         return stream(file.listFiles())
-                .filter(f -> Pattern.matches(BasePluginRepository.FILE_EXT, f.getName()))
+                .filter(f -> matchesDescriptorExtension(f.getName()))
                 .map(this::parseDescriptorFile)
                 .filter(PluginDescriptorParser::valid)
                 .map(PluginDescriptorParser::parse)
@@ -68,7 +68,7 @@ public class DirPluginRepository extends BasePluginRepository implements PluginR
         List<String> jars = Lists.newArrayList();
         List<String> resources = Lists.newArrayList();
 
-        final File dependencies = Paths.get(file.getPath(), PLUGIN_DEPENDENCY_DIR).toFile();
+        final File dependencies = Paths.get(file.getPath(), PLUGIN_LIB_DIR).toFile();
 
         final File[] dependencyFiles = dependencies.listFiles();
 

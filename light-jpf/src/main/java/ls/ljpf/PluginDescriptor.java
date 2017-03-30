@@ -7,6 +7,8 @@ import ls.ljpf.versions.Version;
  */
 public class PluginDescriptor {
 
+    public static final String FILE_EXTENSION = "plugin";
+
     private final String id;
     private final Version version;
     private final String pluginClass;

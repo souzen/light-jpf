@@ -1,7 +1,10 @@
 package ls.ljpf.repository;
 
 import com.google.common.collect.Maps;
-import ls.ljpf.*;
+import ls.ljpf.PluginDescriptor;
+import ls.ljpf.PluginException;
+import ls.ljpf.PluginRepository;
+import ls.ljpf.PluginRepositoryEntry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,15 +18,12 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
+import java.util.regex.Pattern;
 
 /**
  * Created by souzen on 25.03.2017.
  */
 public class BasePluginRepository implements PluginRepository {
-
-    //TODO: Move this properties to more appropriate place
-    public static final String FILE_EXT = ".*plugin";
-    public static final String PLUGIN_DEPENDENCY_DIR = "lib";
 
     private static final Logger LOG = LoggerFactory.getLogger(BasePluginRepository.class.getSimpleName());
 
@@ -53,7 +53,7 @@ public class BasePluginRepository implements PluginRepository {
             throw new PluginException(entry.getDescriptor().getId(), "Duplicate plugin with same id in repository");
 
         repositoryEntryMap.put(entry.getDescriptor().getId(), entry);
-        LOG.debug("Plugin Found: {} {}", entry.getDescriptor().getId(), entry.getClasspath().getPath());
+        LOG.debug("Plugin added: {} {}", entry.getDescriptor().getId(), entry.getClasspath().getPath());
     }
 
     protected Properties parseDescriptorFile(File file) {
@@ -84,4 +84,7 @@ public class BasePluginRepository implements PluginRepository {
         return properties;
     }
 
+    protected boolean matchesDescriptorExtension(String filename) {
+        return Pattern.matches(".*" + PluginDescriptor.FILE_EXTENSION, filename);
+    }
 }

@@ -30,6 +30,6 @@ public class SecondPlugin implements Plugin {
 
     @Override
     public void unload() {
-        LOG.info("Unload [classloader {}]", this.getClass().getClassLoader());
+        LOG.info("Unload");
     }
 }

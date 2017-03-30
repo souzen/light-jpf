@@ -26,6 +26,7 @@ public class App {
     public void init() {
         LOG.info("Initializing... {}");
 
+        // TODO: Simplify code below
         PluginRepository pluginRepository;
 
         final File pluginsDir = Paths.get("plugins").toFile();

@@ -13,8 +13,8 @@ TODO
 - maven central
 
 ## Refactor
-- dependency resolver
+- simplify directory / classpath repository
 - plugin config / init method - is this necessary?
-- dir repository - hardocoded lib
+- dependency resolver
 - review ClasspathPluginRepository - how to load different versions from classpath?
 

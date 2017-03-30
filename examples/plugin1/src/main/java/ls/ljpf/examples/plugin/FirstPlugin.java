@@ -21,7 +21,7 @@ public class FirstPlugin implements Plugin {
 
     @Override
     public void unload() {
-        LOG.info("Unload [classloader {}]", getClass().getClassLoader());
+        LOG.info("Unload");
     }
 
 }

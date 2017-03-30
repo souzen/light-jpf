@@ -67,7 +67,7 @@ public class ClasspathPluginRepository extends BasePluginRepository implements P
 
             // Load jar file dependencies from classpath
             classpathUris.stream()
-                    .filter(f -> f.isFile() && Pattern.matches(pluginJarExt, f.getPath()))
+                    .filter(f -> f.isFile() && Pattern.matches(this.pluginJarExt, f.getPath()))
                     .flatMap(this::loadJarEntries)
                     .forEach(this::addEntry);
         }
@@ -75,7 +75,7 @@ public class ClasspathPluginRepository extends BasePluginRepository implements P
 
     private Stream<File> loadPackedClasspathDirs(List<File> dirs) {
         try {
-            // Intellij patch
+            // This is performed in order to load compressed intellij classpath
 
             for (int i = 0; i < dirs.size(); i++) {
                 File file = dirs.get(i);
@@ -97,7 +97,8 @@ public class ClasspathPluginRepository extends BasePluginRepository implements P
             }
 
         } catch (IOException e) {
-            LOG.warn("Couldn't load packed classpath dirs {}", e.getMessage());
+            // NO-OP
+            LOG.debug("Couldn't load packed classpath dirs {}", e.getMessage());
         }
 
         return Stream.empty();
@@ -121,7 +122,7 @@ public class ClasspathPluginRepository extends BasePluginRepository implements P
 
     private Stream<PluginDescriptor> getDirDescriptors(File file) {
         return stream(file.listFiles())
-                .filter(f -> Pattern.matches(BasePluginRepository.FILE_EXT, f.getName()))
+                .filter(f -> matchesDescriptorExtension(f.getName()))
                 .map(this::parseDescriptorFile)
                 .filter(PluginDescriptorParser::valid)
                 .map(PluginDescriptorParser::parse);
@@ -134,7 +135,7 @@ public class ClasspathPluginRepository extends BasePluginRepository implements P
             final JarFile jar = new JarFile(file);
 
             result = jar.stream()
-                    .filter(jarEntry -> Pattern.matches(BasePluginRepository.FILE_EXT, jarEntry.getName()))
+                    .filter(jarEntry -> matchesDescriptorExtension(jarEntry.getName()))
                     .map(jarEntry -> parseDescriptorFile(jar, jarEntry))
                     .filter(PluginDescriptorParser::valid)
                     .map(PluginDescriptorParser::parse);
