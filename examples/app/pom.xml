@@ -11,6 +11,13 @@
 
     <artifactId>app</artifactId>
 
+    <properties>
+        <assembly.plugins.dir>${project.build.directory}/plugins</assembly.plugins.dir>
+        <assembly.plugins.groupId>ls.ljpf.examples.plugin</assembly.plugins.groupId>
+        <assembly.main.class>ls.ljpf.examples.app.App</assembly.main.class>
+        <assembly.main.args />
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -23,15 +30,61 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>ls.ljpf.examples</groupId>
+            <groupId>ls.ljpf.examples.plugin</groupId>
             <artifactId>plugin1</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>ls.ljpf.examples</groupId>
+            <groupId>ls.ljpf.examples.plugin</groupId>
             <artifactId>plugin2</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <!-- Download plugin dependencies (plugin-jar) and unpack to build directory -->
+                    <execution>
+                        <id>generate-plugin-dir</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>unpack-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${assembly.plugins.dir}</outputDirectory>
+                            <includeGroupIds>${assembly.plugins.groupId}</includeGroupIds>
+                            <classifier>plugin</classifier>
+                            <overWriteReleases>false</overWriteReleases>
+                            <overWriteSnapshots>true</overWriteSnapshots>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Create assembly output jar using distro-assembly.xml from geonardo-assembly project -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <id>create-distribution</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>src/assembly/distro-assembly.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

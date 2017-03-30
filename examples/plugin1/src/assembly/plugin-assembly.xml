@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.3 http://maven.apache.org/xsd/assembly-1.1.3.xsd">
+    <id>plugin</id>
+    <formats>
+        <format>jar</format>
+    </formats>
+    <baseDirectory>${project.name}</baseDirectory>
+    <fileSets>
+        <fileSet>
+            <outputDirectory></outputDirectory>
+            <directory>${assembly.plugin.resources.dir}</directory>
+            <includes>
+                <include>*.plugin</include>
+            </includes>
+            <filtered>true</filtered>
+        </fileSet>
+        <fileSet>
+            <outputDirectory></outputDirectory>
+            <directory>${assembly.plugin.resources.dir}</directory>
+            <excludes>
+                <exclude>*.plugin</exclude>
+            </excludes>
+            <filtered>false</filtered>
+        </fileSet>
+    </fileSets>
+    <dependencySets>
+        <dependencySet>
+            <outputDirectory>lib</outputDirectory>
+            <useProjectArtifact>true</useProjectArtifact>
+            <scope>runtime</scope>
+            <excludes>
+                <exclude>org.slf4j:slf4j*</exclude>
+                <exclude>log4j:log4j*</exclude>
+            </excludes>
+        </dependencySet>
+    </dependencySets>
+</assembly>

@@ -5,6 +5,8 @@ import ls.ljpf.PluginClasspath;
 import ls.ljpf.PluginDescriptor;
 import ls.ljpf.PluginRepository;
 import ls.ljpf.PluginRepositoryEntry;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,11 +22,20 @@ import static java.util.Arrays.stream;
  */
 public class DirPluginRepository extends BasePluginRepository implements PluginRepository {
 
+    private static final Logger LOG = LoggerFactory.getLogger(DirPluginRepository.class.getSimpleName());
+
     private final String path;
+
+    public DirPluginRepository(String path) {
+        this(new File(path));
+    }
 
     public DirPluginRepository(final File file) {
         try {
+            LOG.debug("Loading plugins from directory: " + file.getAbsolutePath());
+
             this.path = file.getCanonicalPath();
+
         } catch (IOException e) {
             throw new IllegalArgumentException("Failed to load dir plugin repository", e);
         }

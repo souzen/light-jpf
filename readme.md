@@ -14,8 +14,7 @@ TODO
 
 ## Refactor
 - dependency resolver
-- plugin config - is this necessary?
-- plugin init method?
+- plugin config / init method - is this necessary?
 - dir repository - hardocoded lib
 - review ClasspathPluginRepository - how to load different versions from classpath?
 
