@@ -2,7 +2,7 @@ package ls.ljpf.repository;
 
 import ls.ljpf.PluginDescriptor;
 import ls.ljpf.PluginException;
-import versions.Version;
+import ls.ljpf.versions.Version;
 
 import java.util.Objects;
 import java.util.Properties;

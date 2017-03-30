@@ -1,4 +1,4 @@
-package versions;
+package ls.ljpf.versions;
 
 /**
  * Created by sosnickl on 2016-03-18.

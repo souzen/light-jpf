@@ -1,19 +1,20 @@
-package versions;
+package ls.ljpf.versions;
 
 import java.util.regex.Pattern;
 
 /**
- * Created by kubis on 5/19/2016.
+ * Created by sosnickl on 2016-03-18.
  */
-public class MaxVersionMatcher implements VersionMatcher {
+public class MinVersionMatcher implements VersionMatcher {
 
     private static final Pattern PATTERN = Pattern.compile("(\\.)");
-    private VersionComponent[] matcherComponents;
-    private String maxVersion;
 
-    public MaxVersionMatcher(String maxVersion) {
-        this.maxVersion = maxVersion;
-        final String[] split = PATTERN.split(maxVersion.trim());
+    private VersionComponent[] matcherComponents;
+    private String minVersion;
+
+    public MinVersionMatcher(final String minVersion) {
+        this.minVersion = minVersion;
+        final String[] split = PATTERN.split(minVersion.trim());
 
         matcherComponents = new VersionComponent[split.length];
 
@@ -23,8 +24,9 @@ public class MaxVersionMatcher implements VersionMatcher {
     }
 
     @Override
-    public boolean matches(Version version) {
-        if (version.toString().equals(maxVersion.trim())) {
+    public boolean matches(final Version version) {
+
+        if (version.toString().equals(minVersion.trim())) {
             return true;
         }
 
@@ -35,11 +37,20 @@ public class MaxVersionMatcher implements VersionMatcher {
 
         for (int i = 0; i < components.length; i++) {
             int v = components[i];
-            int matcher = i < matcherComponents.length ? Integer.valueOf(matcherComponents[i].value) : 0;
+            int matcher = 0;
 
-            if (v > matcher) {
+            if (i < matcherComponents.length) {
+                String value = matcherComponents[i].value;
+                if (value.equals("+")) {
+                    return true;
+                }
+                matcher =
+                    value.endsWith("+") ? Integer.valueOf(value.substring(0, value.indexOf("+"))) : Integer.valueOf(value);
+            }
+
+            if (v < matcher) {
                 return false;
-            } else if (v < matcher){
+            } else if (v > matcher) {
                 return true;
             }
         }
@@ -49,7 +60,7 @@ public class MaxVersionMatcher implements VersionMatcher {
 
     @Override
     public String description() {
-        return "Max version: " + toString();
+        return String.format("Min version: %s", toString());
     }
 
     @Override
@@ -66,10 +77,11 @@ public class MaxVersionMatcher implements VersionMatcher {
 
     @Override
     public String toVersionString() {
-        return maxVersion;
+        return minVersion;
     }
 
-    public static VersionMatcher matchingMaxVersion(final String version) {
-        return new MaxVersionMatcher(version);
+    public static VersionMatcher matchingMinVersion(final String minVersion) {
+        return new MinVersionMatcher(minVersion);
     }
+
 }

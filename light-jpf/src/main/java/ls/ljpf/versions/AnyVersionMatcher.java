@@ -1,4 +1,4 @@
-package versions;
+package ls.ljpf.versions;
 
 import java.util.regex.Pattern;
 

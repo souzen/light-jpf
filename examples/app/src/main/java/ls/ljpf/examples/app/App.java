@@ -11,21 +11,28 @@ import ls.ljpf.repository.ClasspathPluginRepository;
  */
 public class App {
 
+    private PluginManager pluginManager;
+
     public void init() {
         PluginRepository pluginRepository = new ClasspathPluginRepository(".*ls.ljpf.examples.*jar");
 
         ExampleConfig appConfig = new ExampleConfig();
         appConfig.setValue("Hello");
 
-        PluginManager pluginManager = new DefaultPluginManager(pluginRepository);
+        pluginManager = new DefaultPluginManager(pluginRepository);
         pluginManager.load("FirstPlugin", appConfig);
         pluginManager.load("SecondPlugin", appConfig);
+
+    }
+
+    public void shutdown() {
         pluginManager.unloadAll();
     }
 
     public static void main(String[] args) {
         App app = new App();
         app.init();
+        app.shutdown();
     }
 
 }

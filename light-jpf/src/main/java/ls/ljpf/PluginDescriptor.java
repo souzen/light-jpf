@@ -1,6 +1,6 @@
 package ls.ljpf;
 
-import versions.Version;
+import ls.ljpf.versions.Version;
 
 /**
  * Created by souzen on 25.03.2017.
