@@ -18,9 +18,9 @@
             <version>1.7.25</version>
         </dependency>
         <dependency>
-            <groupId>ls.ljpf</groupId>
-            <artifactId>light-jpf</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <groupId>ls.ljpf.examples</groupId>
+            <artifactId>common-api</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>ls.ljpf.examples</groupId>

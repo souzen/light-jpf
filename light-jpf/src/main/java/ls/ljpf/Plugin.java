@@ -5,7 +5,7 @@ package ls.ljpf;
  */
 public interface Plugin {
 
-    void init(final PluginConfig config);
+    default void init(final PluginConfig config) {}
 
     void load();
 

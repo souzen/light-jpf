@@ -14,19 +14,14 @@ public class FirstPlugin implements Plugin {
     private static final Logger LOG = LoggerFactory.getLogger(FirstPlugin.class.getSimpleName());
 
     @Override
-    public void init(PluginConfig config) {
-        LOG.debug("Init [classloader {}]", getClass().getClassLoader());
-    }
-
-    @Override
     public void load() {
-        LOG.debug("Load [classloader {}]", getClass().getClassLoader());
-        LOG.debug("Spring version {}", SpringVersion.getVersion());
+        LOG.info("Load [classloader {}]", getClass().getClassLoader());
+        LOG.info("Spring version {}", SpringVersion.getVersion());
     }
 
     @Override
     public void unload() {
-        LOG.debug("Unload [classloader {}]", getClass().getClassLoader());
+        LOG.info("Unload [classloader {}]", getClass().getClassLoader());
     }
 
 }

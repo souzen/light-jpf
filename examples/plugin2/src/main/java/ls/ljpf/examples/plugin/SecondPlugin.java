@@ -2,6 +2,7 @@ package ls.ljpf.examples.plugin;
 
 import ls.ljpf.Plugin;
 import ls.ljpf.PluginConfig;
+import ls.ljpf.examples.common.ExampleConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.SpringVersion;
@@ -15,17 +16,20 @@ public class SecondPlugin implements Plugin {
 
     @Override
     public void init(PluginConfig config) {
-        LOG.debug("Init [classloader {}]", this.getClass().getClassLoader());
+        if(config instanceof ExampleConfig) {
+            ExampleConfig exampleConfig = (ExampleConfig) config;
+            LOG.info("Example config: {} world!", exampleConfig.getValue());
+        }
     }
 
     @Override
     public void load() {
-        LOG.debug("Load [classloader {}]", this.getClass().getClassLoader());
-        LOG.debug("Spring version {}", SpringVersion.getVersion());
+        LOG.info("Load [classloader {}]", this.getClass().getClassLoader());
+        LOG.info("Spring version {}", SpringVersion.getVersion());
     }
 
     @Override
     public void unload() {
-        LOG.debug("Unload [classloader {}]", this.getClass().getClassLoader());
+        LOG.info("Unload [classloader {}]", this.getClass().getClassLoader());
     }
 }
