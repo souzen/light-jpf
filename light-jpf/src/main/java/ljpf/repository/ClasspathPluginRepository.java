@@ -31,8 +31,6 @@ public class ClasspathPluginRepository extends BasePluginRepository implements P
 
     private static final Logger LOG = LoggerFactory.getLogger(ClasspathPluginRepository.class.getSimpleName());
 
-    private static final String CLASSPATH_ATTR_NAME = "Class-Path";
-
     private String pluginJarExt;
 
     public ClasspathPluginRepository(String pluginJarExt) {
@@ -53,9 +51,6 @@ public class ClasspathPluginRepository extends BasePluginRepository implements P
                 }
             }
 
-            // extract classpath dirs if it was packed to jar file
-            classpathUris.addAll(loadPackedClasspathDirs(classpathUris).collect(toList()));
-
             // Load other project dependencies from classes dir
             classpathUris.stream()
                     .filter(f -> f.isDirectory())
@@ -68,37 +63,6 @@ public class ClasspathPluginRepository extends BasePluginRepository implements P
                     .flatMap(this::loadJarEntries)
                     .forEach(this::addEntry);
         }
-    }
-
-    private Stream<File> loadPackedClasspathDirs(List<File> dirs) {
-        try {
-            // This is performed in order to load compressed intellij classpath
-
-            for (int i = 0; i < dirs.size(); i++) {
-                File file = dirs.get(i);
-                final Path path = file.toPath();
-
-                if (!Files.isReadable(path))
-                    continue;
-
-                JarInputStream jarStream = new JarInputStream(Files.newInputStream(path));
-                Manifest mf = jarStream.getManifest();
-
-                if (mf == null || mf.getMainAttributes().getValue(CLASSPATH_ATTR_NAME) == null) {
-                    continue;
-                }
-
-                String classpath = mf.getMainAttributes().getValue(CLASSPATH_ATTR_NAME);
-
-                return Stream.of(classpath.split("file:")).map(dir -> new File(dir.trim()));
-            }
-
-        } catch (IOException e) {
-            // NO-OP
-            LOG.debug("Couldn't load packed classpath dirs {}", e.getMessage());
-        }
-
-        return Stream.empty();
     }
 
     private Stream<PluginRepositoryEntry> loadDirEntries(File file) {
