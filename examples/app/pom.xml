@@ -31,12 +31,12 @@
         </dependency>
         <dependency>
             <groupId>ls.ljpf.examples.plugin</groupId>
-            <artifactId>plugin1</artifactId>
+            <artifactId>first-plugin</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>ls.ljpf.examples.plugin</groupId>
-            <artifactId>plugin2</artifactId>
+            <artifactId>second-plugin</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>

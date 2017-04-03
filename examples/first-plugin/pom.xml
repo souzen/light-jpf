@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ls.ljpf.examples.plugin</groupId>
-    <artifactId>plugin1</artifactId>
+    <artifactId>first-plugin</artifactId>
 
     <properties>
         <assembly.plugin.resources.dir>${project.build.directory}/plugin_resources</assembly.plugin.resources.dir>
@@ -32,6 +32,19 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>ls.ljpf</groupId>
+                <artifactId>light-jpf-maven-plugin</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>package-plugin</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>

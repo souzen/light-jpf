@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ls.ljpf.examples.plugin</groupId>
-    <artifactId>plugin2</artifactId>
+    <artifactId>second-plugin</artifactId>
 
     <properties>
         <assembly.plugin.resources.dir>${project.build.directory}/plugin_resources</assembly.plugin.resources.dir>

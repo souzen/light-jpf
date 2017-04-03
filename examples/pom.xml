@@ -14,8 +14,8 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>plugin1</module>
-        <module>plugin2</module>
+        <module>first-plugin</module>
+        <module>second-plugin</module>
         <module>app</module>
         <module>common-api</module>
     </modules>
