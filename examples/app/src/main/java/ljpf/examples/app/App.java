@@ -32,7 +32,7 @@ public class App {
         pluginManager = new DefaultPluginManager(pluginRepository, classLoaderFactory);
 
         ExampleConfig appConfig = new ExampleConfig();
-        appConfig.setValue("Hello");
+        appConfig.setValue("World");
 
         pluginManager.load("FirstPlugin", appConfig);
         pluginManager.load("SecondPlugin", appConfig);

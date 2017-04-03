@@ -13,7 +13,7 @@
     <artifactId>second-plugin</artifactId>
 
     <properties>
-        <assembly.plugin.resources.dir>${project.build.directory}/plugin_resources</assembly.plugin.resources.dir>
+        <assembly.plugin.dir>${project.build.directory}/plugin_assembly</assembly.plugin.dir>
     </properties>
 
     <dependencies>
@@ -38,11 +38,11 @@
                 <version>1.8</version>
                 <executions>
                     <execution>
-                        <id>generate-plugin-resources-dir</id>
+                        <id>generate-additional-plugin-resources</id>
                         <phase>prepare-package</phase>
                         <configuration>
                             <target>
-                                <copy failonerror="false" todir="${assembly.plugin.resources.dir}">
+                                <copy failonerror="false" todir="${assembly.plugin.dir}">
                                     <fileset dir="${project.basedir}/src/main/resources"/>
                                 </copy>
                             </target>
@@ -53,23 +53,16 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- Create assembly output jar using plugin-assembly.xml from geonardo-assembly project -->
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>3.0.0</version>
+                <groupId>ls.ljpf</groupId>
+                <artifactId>light-jpf-maven-plugin</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
                 <executions>
                     <execution>
-                        <id>make-plugin-assembly</id>
                         <phase>package</phase>
                         <goals>
-                            <goal>single</goal>
+                            <goal>make-plugin</goal>
                         </goals>
-                        <configuration>
-                            <descriptors>
-                                <descriptor>src/assembly/plugin-assembly.xml</descriptor>
-                            </descriptors>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
