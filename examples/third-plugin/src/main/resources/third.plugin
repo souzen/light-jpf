@@ -1,0 +1,4 @@
+id=ThirdPlugin
+version=${project.version}
+pluginClass=ljpf.examples.plugin.ThirdPlugin
+description=Third Example

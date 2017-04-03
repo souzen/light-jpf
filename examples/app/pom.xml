@@ -39,6 +39,11 @@
             <artifactId>second-plugin</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>ls.ljpf.examples.plugin</groupId>
+            <artifactId>third-plugin</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
     <build>

@@ -36,6 +36,7 @@ public class App {
 
         pluginManager.load("FirstPlugin", appConfig);
         pluginManager.load("SecondPlugin", appConfig);
+        pluginManager.load("ThirdPlugin", appConfig);
 
     }
 

@@ -18,6 +18,7 @@
         <module>second-plugin</module>
         <module>app</module>
         <module>common-api</module>
+        <module>third-plugin</module>
     </modules>
 
 

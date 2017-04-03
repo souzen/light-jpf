@@ -10,7 +10,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ls.ljpf.examples.plugin</groupId>
-    <artifactId>second-plugin</artifactId>
+    <artifactId>third-plugin</artifactId>
+
+    <properties>
+        <assembly.plugin.dir>${project.build.directory}/plugin_assembly</assembly.plugin.dir>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -19,15 +23,31 @@
             <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
-            <version>3.2.18.RELEASE</version>
-        </dependency>
     </dependencies>
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.8</version>
+                <executions>
+                    <execution>
+                        <id>generate-additional-plugin-resources</id>
+                        <phase>prepare-package</phase>
+                        <configuration>
+                            <target>
+                                <copy failonerror="false" todir="${assembly.plugin.dir}">
+                                    <fileset dir="${project.basedir}/src/main/resources"/>
+                                </copy>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>ls.ljpf</groupId>
                 <artifactId>light-jpf-maven-plugin</artifactId>
