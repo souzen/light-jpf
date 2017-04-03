@@ -22,7 +22,7 @@ public class SecondPlugin implements Plugin {
 
     @Override
     public void load() {
-        LOG.info("Load [classloader {}]", getClass().getClassLoader());
+        LOG.debug("Load [classloader {}]", getClass().getClassLoader());
         LOG.info("Spring version {}", SpringVersion.getVersion());
     }
 

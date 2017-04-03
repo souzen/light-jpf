@@ -36,21 +36,23 @@ public class MakePluginMojo extends AbstractAssemblyMojo {
     @Component
     private AssemblyArchiver assemblyArchiver;
 
-    @Parameter(property = "pluginIncludesDir", defaultValue = "${project.build.directory}/plugin_assembly")
+    @Parameter(property = "pluginIncludesDir", defaultValue = "${project.build.directory}/plugin")
     private File pluginIncludesDir;
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-        getLog().info("Hello " + pluginIncludesDir.getPath());
-
         Assembly assembly = prepareAssembly();
 
         if (pluginIncludesDir.exists()) {
+            getLog().info("Adding resources from: " + pluginIncludesDir.getAbsolutePath());
+
             FileSet pluginIncludesFileSet = new FileSet();
             pluginIncludesFileSet.setOutputDirectory("");
             pluginIncludesFileSet.setDirectory(pluginIncludesDir.getPath());
             pluginIncludesFileSet.setFiltered(false);
             assembly.getFileSets().add(pluginIncludesFileSet);
+        } else {
+            getLog().info("Plugin includes dir not present: " + pluginIncludesDir.getAbsolutePath());
         }
 
         createAssembly(assembly, true);

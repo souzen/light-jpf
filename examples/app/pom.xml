@@ -15,7 +15,6 @@
         <assembly.plugins.dir>${project.build.directory}/plugins</assembly.plugins.dir>
         <assembly.plugins.groupId>ls.ljpf.examples.plugin</assembly.plugins.groupId>
         <assembly.main.class>ljpf.examples.app.App</assembly.main.class>
-        <assembly.main.args />
     </properties>
 
     <dependencies>

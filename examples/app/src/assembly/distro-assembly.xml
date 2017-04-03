@@ -20,18 +20,8 @@
             <filtered>true</filtered>
         </fileSet>
         <fileSet>
-            <outputDirectory>logs</outputDirectory>
-            <directory>${project.build.directory}</directory>
-            <excludes>
-                <exclude>*/**</exclude>
-            </excludes>
-        </fileSet>
-        <fileSet>
             <outputDirectory>plugins</outputDirectory>
             <directory>${assembly.plugins.dir}</directory>
-            <excludes>
-                <exclude>META-INF/**</exclude>
-            </excludes>
         </fileSet>
     </fileSets>
     <dependencySets>

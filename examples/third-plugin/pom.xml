@@ -12,10 +12,6 @@
     <groupId>ls.ljpf.examples.plugin</groupId>
     <artifactId>third-plugin</artifactId>
 
-    <properties>
-        <assembly.plugin.dir>${project.build.directory}/plugin_assembly</assembly.plugin.dir>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>ls.ljpf.examples</groupId>
@@ -37,9 +33,8 @@
                         <phase>prepare-package</phase>
                         <configuration>
                             <target>
-                                <copy failonerror="false" todir="${assembly.plugin.dir}">
-                                    <fileset dir="${project.basedir}/src/main/resources"/>
-                                </copy>
+                                <copy file="${project.basedir}/src/main/resources/additional.properties"
+                                      todir="${project.build.directory}/plugin"/>
                             </target>
                         </configuration>
                         <goals>
@@ -58,6 +53,9 @@
                         <goals>
                             <goal>make-plugin</goal>
                         </goals>
+                        <configuration>
+                            <pluginIncludesDir>${project.build.directory}/plugin</pluginIncludesDir>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>

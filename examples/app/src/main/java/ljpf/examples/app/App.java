@@ -21,7 +21,7 @@ public class App {
     private PluginManager pluginManager;
 
     public void init() {
-        LOG.info("Initializing... {}");
+        LOG.info("Initializing...");
 
         MultiPluginRepository pluginRepository = new MultiPluginRepository();
         pluginRepository.addRepository(new ClasspathPluginRepository(".*ls.ljpf.examples.*jar"));
@@ -31,13 +31,12 @@ public class App {
 
         pluginManager = new DefaultPluginManager(pluginRepository, classLoaderFactory);
 
-        ExampleConfig appConfig = new ExampleConfig();
-        appConfig.setValue("World");
+        ExampleConfig config = new ExampleConfig();
+        config.setValue("World");
 
-        pluginManager.load("FirstPlugin", appConfig);
-        pluginManager.load("SecondPlugin", appConfig);
-        pluginManager.load("ThirdPlugin", appConfig);
-
+        pluginManager.load("FirstPlugin", config);
+        pluginManager.load("SecondPlugin", config);
+        pluginManager.load("ThirdPlugin", config);
     }
 
     public void shutdown() {
