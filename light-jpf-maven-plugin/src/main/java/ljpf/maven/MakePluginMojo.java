@@ -4,6 +4,7 @@ import com.google.inject.internal.util.Lists;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Component;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.plugins.assembly.InvalidAssemblerConfigurationException;
@@ -24,7 +25,7 @@ import java.util.List;
 /**
  * Created by sosnickl on 2017-04-03.
  */
-@Mojo(name = "make-plugin")
+@Mojo(name = "make-plugin", defaultPhase = LifecyclePhase.PACKAGE)
 public class MakePluginMojo extends AbstractAssemblyMojo {
 
     @Parameter(defaultValue = "${project}", readonly = true, required = true)

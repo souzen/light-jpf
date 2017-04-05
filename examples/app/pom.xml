@@ -12,10 +12,8 @@
     <artifactId>app</artifactId>
 
     <properties>
-        <assembly.plugins.dir>${project.build.directory}/plugins</assembly.plugins.dir>
-        <assembly.main.class>ljpf.examples.app.App</assembly.main.class>
-
-        <assembly.plugins.groupId>ls.ljpf.examples.plugin</assembly.plugins.groupId>
+        <main.class>ljpf.examples.app.App</main.class>
+        <plugins.dir>${project.build.directory}/plugins</plugins.dir>
     </properties>
 
     <dependencies>
@@ -29,6 +27,21 @@
             <artifactId>common-api</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <!--<dependency>-->
+            <!--<groupId>ls.ljpf.examples.plugin</groupId>-->
+            <!--<artifactId>first-plugin</artifactId>-->
+            <!--<version>${project.version}</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>ls.ljpf.examples.plugin</groupId>-->
+            <!--<artifactId>second-plugin</artifactId>-->
+            <!--<version>${project.version}</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>ls.ljpf.examples.plugin</groupId>-->
+            <!--<artifactId>third-plugin</artifactId>-->
+            <!--<version>${project.version}</version>-->
+        <!--</dependency>-->
     </dependencies>
 
     <build>
@@ -39,12 +52,12 @@
                 <version>0.0.1-SNAPSHOT</version>
                 <executions>
                     <execution>
-                        <phase>prepare-package</phase>
+                        <phase>process-sources</phase>
                         <goals>
                             <goal>make-plugin-repository</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${assembly.plugins.dir}</outputDirectory>
+                            <outputDirectory>${plugins.dir}</outputDirectory>
                             <artifactItems>
                                 <artifactItem>
                                     <groupId>ls.ljpf.examples.plugin</groupId>

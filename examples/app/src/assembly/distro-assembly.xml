@@ -21,7 +21,7 @@
         </fileSet>
         <fileSet>
             <outputDirectory>plugins</outputDirectory>
-            <directory>${assembly.plugins.dir}</directory>
+            <directory>${plugins.dir}</directory>
         </fileSet>
     </fileSets>
     <dependencySets>

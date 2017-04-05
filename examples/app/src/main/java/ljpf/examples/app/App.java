@@ -25,6 +25,7 @@ public class App {
 
         MultiPluginRepository pluginRepository = new MultiPluginRepository();
         pluginRepository.addRepository(new ClasspathPluginRepository());
+        pluginRepository.addRepository(new DirPluginRepository("plugins"));
         pluginRepository.addRepository(new DirPluginRepository("examples/app/target/plugins"));
 
         PluginClassLoaderFactory classLoaderFactory = new ParentLastClassLoaderFactory();
