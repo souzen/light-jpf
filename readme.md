@@ -7,10 +7,10 @@ TODO
 TODO
 
 ## TODO
-- Propose build plugin for maven
-- dependency resolver
-- Tests
 - licence?
 - maven central
-- review ClasspathPluginRepository - how to load different versions from classpath?
+- dependency resolver
+- Tests
+
+## Examples
 

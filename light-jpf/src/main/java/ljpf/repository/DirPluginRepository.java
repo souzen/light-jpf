@@ -1,10 +1,7 @@
 package ljpf.repository;
 
 import com.google.common.collect.Lists;
-import ljpf.PluginClasspath;
-import ljpf.PluginDescriptorParser;
-import ljpf.PluginRepository;
-import ljpf.PluginRepositoryEntry;
+import ljpf.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,8 +19,6 @@ import static java.util.Arrays.stream;
 public class DirPluginRepository extends BasePluginRepository implements PluginRepository {
 
     private static final Logger LOG = LoggerFactory.getLogger(DirPluginRepository.class.getSimpleName());
-
-    private static final String PLUGIN_LIB_DIR = "lib";
 
     private final String path;
 
@@ -71,7 +66,7 @@ public class DirPluginRepository extends BasePluginRepository implements PluginR
         List<String> jars = Lists.newArrayList();
         List<String> resources = Lists.newArrayList();
 
-        final File dependencies = Paths.get(file.getPath(), PLUGIN_LIB_DIR).toFile();
+        final File dependencies = Paths.get(file.getPath(), PluginDescriptor.PLUGIN_LIB_DIR).toFile();
 
         final File[] dependencyFiles = dependencies.listFiles();
 

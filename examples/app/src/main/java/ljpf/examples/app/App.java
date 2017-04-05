@@ -24,8 +24,8 @@ public class App {
         LOG.info("Initializing...");
 
         MultiPluginRepository pluginRepository = new MultiPluginRepository();
-        pluginRepository.addRepository(new ClasspathPluginRepository(".*ls.ljpf.examples.*jar"));
-        pluginRepository.addRepository(new DirPluginRepository("plugins"));
+        pluginRepository.addRepository(new ClasspathPluginRepository());
+        pluginRepository.addRepository(new DirPluginRepository("examples/app/target/plugins"));
 
         PluginClassLoaderFactory classLoaderFactory = new ParentLastClassLoaderFactory();
 

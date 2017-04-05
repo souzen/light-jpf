@@ -14,11 +14,11 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>common-api</module>
         <module>first-plugin</module>
         <module>second-plugin</module>
-        <module>app</module>
-        <module>common-api</module>
         <module>third-plugin</module>
+        <module>app</module>
     </modules>
 
 

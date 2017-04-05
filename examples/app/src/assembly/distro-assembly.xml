@@ -29,9 +29,6 @@
             <outputDirectory>lib</outputDirectory>
             <useProjectArtifact>true</useProjectArtifact>
             <scope>runtime</scope>
-            <excludes>
-                <exclude>${assembly.plugins.groupId}:*</exclude>
-            </excludes>
         </dependencySet>
     </dependencySets>
 </assembly>

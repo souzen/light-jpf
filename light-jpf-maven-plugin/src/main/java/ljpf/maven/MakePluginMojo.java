@@ -36,8 +36,11 @@ public class MakePluginMojo extends AbstractAssemblyMojo {
     @Component
     private AssemblyArchiver assemblyArchiver;
 
-    @Parameter(property = "pluginIncludesDir", defaultValue = "${project.build.directory}/plugin")
+    @Parameter(defaultValue = "${project.build.directory}/plugin")
     private File pluginIncludesDir;
+
+    @Parameter(defaultValue = "plugin")
+    private String classifier;
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
@@ -60,14 +63,14 @@ public class MakePluginMojo extends AbstractAssemblyMojo {
 
     protected Assembly prepareAssembly() {
         Assembly assembly = new Assembly();
-        assembly.setId("plugin");
+        assembly.setId(classifier);
         assembly.setFormats(Lists.newArrayList("jar"));
         assembly.setBaseDirectory("${project.name}");
 
         FileSet descriptorFileSet = new FileSet();
         descriptorFileSet.setOutputDirectory("");
         descriptorFileSet.setDirectory("src/main/resources");
-        descriptorFileSet.setIncludes(Lists.newArrayList("*.plugin"));
+        descriptorFileSet.setIncludes(Lists.newArrayList(String.format("*.%s", "plugin")));
         descriptorFileSet.setFiltered(true);
 
         DependencySet dependencySet = new DependencySet();

@@ -13,8 +13,9 @@
 
     <properties>
         <assembly.plugins.dir>${project.build.directory}/plugins</assembly.plugins.dir>
-        <assembly.plugins.groupId>ls.ljpf.examples.plugin</assembly.plugins.groupId>
         <assembly.main.class>ljpf.examples.app.App</assembly.main.class>
+
+        <assembly.plugins.groupId>ls.ljpf.examples.plugin</assembly.plugins.groupId>
     </properties>
 
     <dependencies>
@@ -28,42 +29,39 @@
             <artifactId>common-api</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>ls.ljpf.examples.plugin</groupId>
-            <artifactId>first-plugin</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>ls.ljpf.examples.plugin</groupId>
-            <artifactId>second-plugin</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>ls.ljpf.examples.plugin</groupId>
-            <artifactId>third-plugin</artifactId>
-            <version>${project.version}</version>
-        </dependency>
     </dependencies>
 
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
+                <groupId>ls.ljpf</groupId>
+                <artifactId>light-jpf-maven-plugin</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
                 <executions>
-                    <!-- Download plugin dependencies (plugin-jar) and unpack to build directory -->
                     <execution>
-                        <id>generate-plugin-dir</id>
                         <phase>prepare-package</phase>
                         <goals>
-                            <goal>unpack-dependencies</goal>
+                            <goal>make-plugin-repository</goal>
                         </goals>
                         <configuration>
                             <outputDirectory>${assembly.plugins.dir}</outputDirectory>
-                            <includeGroupIds>${assembly.plugins.groupId}</includeGroupIds>
-                            <classifier>plugin</classifier>
-                            <overWriteReleases>false</overWriteReleases>
-                            <overWriteSnapshots>true</overWriteSnapshots>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>ls.ljpf.examples.plugin</groupId>
+                                    <artifactId>first-plugin</artifactId>
+                                    <version>${project.version}</version>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>ls.ljpf.examples.plugin</groupId>
+                                    <artifactId>second-plugin</artifactId>
+                                    <version>${project.version}</version>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>ls.ljpf.examples.plugin</groupId>
+                                    <artifactId>third-plugin</artifactId>
+                                    <version>${project.version}</version>
+                                </artifactItem>
+                            </artifactItems>
                         </configuration>
                     </execution>
                 </executions>

@@ -11,18 +11,13 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.Collections;
 import java.util.List;
 import java.util.jar.JarFile;
-import java.util.jar.JarInputStream;
-import java.util.jar.Manifest;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import static java.util.Arrays.stream;
-import static java.util.stream.Collectors.toList;
 
 /**
  * Created by souzen on 25.03.2017.
@@ -32,6 +27,10 @@ public class ClasspathPluginRepository extends BasePluginRepository implements P
     private static final Logger LOG = LoggerFactory.getLogger(ClasspathPluginRepository.class.getSimpleName());
 
     private String pluginJarExt;
+
+    public ClasspathPluginRepository() {
+        this(null);
+    }
 
     public ClasspathPluginRepository(String pluginJarExt) {
         this.pluginJarExt = pluginJarExt;
@@ -59,7 +58,7 @@ public class ClasspathPluginRepository extends BasePluginRepository implements P
 
             // Load jar file dependencies from classpath
             classpathUris.stream()
-                    .filter(f -> f.isFile() && Pattern.matches(this.pluginJarExt, f.getPath()))
+                    .filter(f -> f.isFile() && this.pluginJarExt != null && Pattern.matches(this.pluginJarExt, f.getPath()))
                     .flatMap(this::loadJarEntries)
                     .forEach(this::addEntry);
         }
