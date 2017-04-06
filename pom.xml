@@ -8,7 +8,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>${project.groupId}:${project.artifactId}</name>
+    <name>light-jpf-parent</name>
     <description>Lightweight Java Plugin Framework</description>
     <url>https://github.com/souzen/light-jpf</url>
 
