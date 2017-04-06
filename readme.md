@@ -7,7 +7,6 @@ TODO
 TODO
 
 ## TODO
-- licence?
 - maven central
 - dependency resolver
 - Tests
