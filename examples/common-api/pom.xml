@@ -13,7 +13,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>ls.ljpf</groupId>
+            <groupId>com.github.souzen</groupId>
             <artifactId>light-jpf</artifactId>
             <version>${project.version}</version>
         </dependency>

@@ -47,7 +47,7 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>ls.ljpf</groupId>
+                <groupId>com.github.souzen</groupId>
                 <artifactId>light-jpf-maven-plugin</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
                 <executions>
