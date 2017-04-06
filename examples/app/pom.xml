@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>examples</artifactId>
-        <groupId>ls.ljpf.examples</groupId>
+        <groupId>com.github.souzen</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -23,22 +23,22 @@
             <version>1.7.25</version>
         </dependency>
         <dependency>
-            <groupId>ls.ljpf.examples</groupId>
+            <groupId>com.github.souzen</groupId>
             <artifactId>common-api</artifactId>
             <version>${project.version}</version>
         </dependency>
         <!--<dependency>-->
-            <!--<groupId>ls.ljpf.examples.plugin</groupId>-->
+            <!--<groupId>com.github.souzen</groupId>-->
             <!--<artifactId>first-plugin</artifactId>-->
             <!--<version>${project.version}</version>-->
         <!--</dependency>-->
         <!--<dependency>-->
-            <!--<groupId>ls.ljpf.examples.plugin</groupId>-->
+            <!--<groupId>com.github.souzen</groupId>-->
             <!--<artifactId>second-plugin</artifactId>-->
             <!--<version>${project.version}</version>-->
         <!--</dependency>-->
         <!--<dependency>-->
-            <!--<groupId>ls.ljpf.examples.plugin</groupId>-->
+            <!--<groupId>com.github.souzen</groupId>-->
             <!--<artifactId>third-plugin</artifactId>-->
             <!--<version>${project.version}</version>-->
         <!--</dependency>-->
@@ -60,17 +60,17 @@
                             <outputDirectory>${plugins.dir}</outputDirectory>
                             <artifactItems>
                                 <artifactItem>
-                                    <groupId>ls.ljpf.examples.plugin</groupId>
+                                    <groupId>com.github.souzen</groupId>
                                     <artifactId>first-plugin</artifactId>
                                     <version>${project.version}</version>
                                 </artifactItem>
                                 <artifactItem>
-                                    <groupId>ls.ljpf.examples.plugin</groupId>
+                                    <groupId>com.github.souzen</groupId>
                                     <artifactId>second-plugin</artifactId>
                                     <version>${project.version}</version>
                                 </artifactItem>
                                 <artifactItem>
-                                    <groupId>ls.ljpf.examples.plugin</groupId>
+                                    <groupId>com.github.souzen</groupId>
                                     <artifactId>third-plugin</artifactId>
                                     <version>${project.version}</version>
                                 </artifactItem>

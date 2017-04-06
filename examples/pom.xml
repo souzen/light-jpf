@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>ls.ljpf.examples</groupId>
+    <groupId>com.github.souzen</groupId>
     <artifactId>examples</artifactId>
     <packaging>pom</packaging>
 
