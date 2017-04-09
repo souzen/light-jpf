@@ -12,7 +12,9 @@ TODO Description
 
 ## 2. Usage
 
-#### 2.1 Create plugin
+#### 2.1 Create plugin class
+
+Plugin class 
 
 ```java
 public class CustomPlugin implements Plugin {
@@ -30,6 +32,8 @@ public class CustomPlugin implements Plugin {
 }
 ```
 
+Create plugin descriptor file in resources src/main/resources/custom.plugin
+
 ```properties
 id=CustomPlugin
 version=0.0.1
@@ -38,6 +42,9 @@ description=My Custom plugin
 ```
 
 #### 2.2 Create app
+
+In application load plugins
+
 ```java
 public class App {
 
@@ -52,7 +59,11 @@ public class App {
 }
 ```
 
-#### 2.3 Build plugin with Maven
+#### 2.3 Build with Maven
+
+#### Build plugin with Maven
+
+Use light-jpf-maven-plugin to create maven artifact (*-plugin.jar)
 
 ```xml
     <build>
@@ -76,7 +87,9 @@ public class App {
     </build>
 ```
 
-#### 2.4 Add plugins to app
+#### Add plugins to app
+
+Create plugin directory
 
 ```xml
     <build>
@@ -92,7 +105,7 @@ public class App {
                             <goal>make-plugin-repository</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${plugins.dir}</outputDirectory>
+                            <outputDirectory>${project.build.directory}/plugins</outputDirectory>
                             <artifactItems>
                                 <artifactItem>
                                     <groupId>ljpf.examples.plugin</groupId>
@@ -115,7 +128,7 @@ public class App {
 ## 3. Plugin Repositories
 
 #### DirPluginRepository
-TODO Loads plugins from directory
+TODO Loads plugins from given directory
 
 #### ClasspathPluginRepository
 TODO Loads plugins from java classpath
@@ -123,14 +136,31 @@ TODO Loads plugins from java classpath
 #### MultiPluginRepository
 TODO Enables mixing multiple plugin reposiotories
 
-## 4. Examples
+## 4. Debugging
+In app create plugins dir and run or place plugins as dependencies
+
+```xml
+    <dependencies>
+        <dependency>
+            <groupId>ljpf.examples.plugin</groupId>
+            <artifactId>custom-plugin</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+        ...
+        
+    </dependencies>
+```
+
+
+
+## 5. Examples
 TODO
 
-## 5. TODO
+## 6. TODO
 - dependency resolver
 - Tests
 
-## 6. Licence
+## 7. Licence
 Copyright 2017 Luke Sosnicki
 
 Licensed under the Apache License, Version 2.0 (the "License");
