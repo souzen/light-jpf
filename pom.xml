@@ -107,7 +107,7 @@
 
     <scm>
         <connection>scm:git:git://github.com/souzen/light-jpf.git</connection>
-        <developerConnection>scm:git:ssh://github.com:souzen/light-jpf.git</developerConnection>
+        <developerConnection>scm:git:git@github.com:souzen/light-jpf.git</developerConnection>
         <url>http://github.com/souzen/light-jpf/tree/master</url>
         <tag>light-jpf-parent-0.0.1</tag>
     </scm>
