@@ -169,13 +169,8 @@ unzip examples/app/target/app-0.0.3-SNAPSHOT-bin.zip
 ./app-0.0.3-SNAPSHOT/start.bat
 ```
 
-## 6. TODO
-- dependency resolver
-- Tests
 
-
-
-## 7. Licence
+## 6. Licence
 Copyright 2017 Luke Sosnicki
 
 Licensed under the Apache License, Version 2.0 (the "License");
