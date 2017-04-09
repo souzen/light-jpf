@@ -161,6 +161,13 @@ In app create plugins dir and run or place plugins as dependencies
 ## 5. Examples
 See example project [here](https://github.com/souzen/light-jpf/tree/master/examples)
 
+Build and run example
+
+```
+mvn clean package
+unzip examples/app/target/app-0.0.3-SNAPSHOT-bin.zip
+./app-0.0.3-SNAPSHOT/start.bat
+```
 
 ## 6. TODO
 - dependency resolver
