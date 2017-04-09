@@ -3,12 +3,14 @@
 [![Maven Central](https://img.shields.io/maven-central/v/com.github.souzen/light-jpf.svg)](http://search.maven.org/#search|ga|1|light-jpf)
 [![Travis](https://img.shields.io/travis/rust-lang/rust.svg)](https://travis-ci.org/souzen/light-jpf)
 
-TODO Description
+
 
 ## 1. Features
 - simple api
 - custom classloader for sandboxing
 - maven plugin
+
+
 
 ## 2. Usage
 
@@ -28,7 +30,6 @@ public class CustomPlugin implements Plugin {
     public void unload() {
         ...
     }
-
 }
 ```
 
@@ -50,7 +51,7 @@ public class App {
 
     public static void main(String[] args) {
 
-        PluginRepository pluginRepository = new DirPluginRepository("plugin");
+        PluginRepository pluginRepository = new DirPluginRepository("plugins");
         PluginManager pluginManager = new DefaultPluginManager(pluginRepository);
 
         pluginManager.load("CustomPlugin");
@@ -125,6 +126,8 @@ Create plugin directory
     </build>
 ```
 
+
+
 ## 3. Plugin Repositories
 
 #### DirPluginRepository
@@ -135,6 +138,8 @@ TODO Loads plugins from java classpath
 
 #### MultiPluginRepository
 TODO Enables mixing multiple plugin reposiotories
+
+
 
 ## 4. Debugging
 In app create plugins dir and run or place plugins as dependencies
@@ -156,9 +161,13 @@ In app create plugins dir and run or place plugins as dependencies
 ## 5. Examples
 TODO
 
+
+
 ## 6. TODO
 - dependency resolver
 - Tests
+
+
 
 ## 7. Licence
 Copyright 2017 Luke Sosnicki
