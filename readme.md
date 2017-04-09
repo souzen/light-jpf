@@ -159,8 +159,7 @@ In app create plugins dir and run or place plugins as dependencies
 
 
 ## 5. Examples
-TODO
-
+See example project [here](https://github.com/souzen/light-jpf/tree/master/examples)
 
 
 ## 6. TODO
