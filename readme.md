@@ -84,7 +84,7 @@ public class App {
             <plugin>
                 <groupId>com.github.souzen</groupId>
                 <artifactId>light-jpf-maven-plugin</artifactId>
-                <version>0.0.3-SNAPSHOT</version>
+                <version>0.0.2</version>
                 <executions>
                     <execution>
                         <phase>process-sources</phase>
