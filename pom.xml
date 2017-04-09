@@ -123,4 +123,13 @@
         </repository>
     </distributionManagement>
 
+    <developers>
+        <developer>
+            <name>Lukasz Sosnicki</name>
+            <email>luke.sosnicki@gmail.com</email>
+            <organization>None</organization>
+            <organizationUrl>https://github.com/souzen</organizationUrl>
+        </developer>
+    </developers>
+
 </project>
