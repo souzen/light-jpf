@@ -14,9 +14,9 @@
 
 ## 2. Usage
 
-#### 2.1 Create plugin class
+#### 2.1 Create plugin
 
-Plugin class 
+Create Plugin class. Implement ljpf.Plugin interface.
 
 ```java
 public class CustomPlugin implements Plugin {
@@ -33,7 +33,10 @@ public class CustomPlugin implements Plugin {
 }
 ```
 
-Create plugin descriptor file in resources src/main/resources/custom.plugin
+Create plugin descriptor file under your project resources.
+That file has to use .plugin extension.
+
+src/main/resources/custom.plugin
 
 ```properties
 id=CustomPluginId
@@ -44,7 +47,7 @@ description=My Custom plugin
 
 #### 2.2 Create app
 
-In application load plugins
+Load plugins in your main application. Use plugin id from descriptor file to load extensions.
 
 ```java
 public class App {
