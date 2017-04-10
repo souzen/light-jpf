@@ -6,9 +6,9 @@
 
 
 ## 1. Features
-- simple api
-- custom classloader for sandboxing
-- maven plugin
+- Simple api
+- Sandboxing with custom java classloader
+- Build plugins with maven
 
 
 
@@ -16,7 +16,7 @@
 
 #### 2.1 Create plugin
 
-Create Plugin class. Implement ljpf.Plugin interface.
+Create Plugin class that implements ljpf.Plugin interface.
 
 ```java
 public class CustomPlugin implements Plugin {
@@ -33,8 +33,8 @@ public class CustomPlugin implements Plugin {
 }
 ```
 
-Create plugin descriptor file under your project resources.
-That file has to use .plugin extension.
+Create descriptor file for corresponding plugin and place it in project resources.
+Descriptor file must have .plugin extension.
 
 src/main/resources/custom.plugin
 
@@ -47,7 +47,9 @@ description=My Custom plugin
 
 #### 2.2 Create app
 
-Load plugins in your main application. Use plugin id from descriptor file to load extensions.
+Load plugins in your main application using PluginManager interface. Use plugin id from descriptor file to load extensions.
+Plugin repository determines way of loading plugins. Base case is to load jars from classpath plugins/ directory.
+
 
 ```java
 public class App {
@@ -67,7 +69,8 @@ public class App {
 
 #### Build plugin with Maven
 
-Use light-jpf-maven-plugin to create maven artifact (*-plugin.jar)
+Use light-jpf-maven-plugin to create maven artifact (*-plugin.jar).
+Maven will create fat jar with plugin code and all its dependencies. 
 
 ```xml
     <build>
@@ -93,7 +96,7 @@ Use light-jpf-maven-plugin to create maven artifact (*-plugin.jar)
 
 #### Add plugins to app
 
-Create plugin directory
+light-jpf-maven-plugin can also prepare plugins/ directory in your application.
 
 ```xml
     <build>
