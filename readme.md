@@ -36,7 +36,7 @@ public class CustomPlugin implements Plugin {
 Create plugin descriptor file in resources src/main/resources/custom.plugin
 
 ```properties
-id=CustomPlugin
+id=CustomPluginId
 version=0.0.1
 pluginClass=ljpf.examples.plugin.CustomPlugin
 description=My Custom plugin
@@ -54,7 +54,7 @@ public class App {
         PluginRepository pluginRepository = new DirPluginRepository("plugins");
         PluginManager pluginManager = new DefaultPluginManager(pluginRepository);
 
-        pluginManager.load("CustomPlugin");
+        pluginManager.load("CustomPluginId");
     }
 
 }
