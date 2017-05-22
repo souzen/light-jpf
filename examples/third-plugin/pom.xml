@@ -3,7 +3,7 @@
     <parent>
         <artifactId>examples</artifactId>
         <groupId>com.github.souzen</groupId>
-        <version>0.0.3</version>
+        <version>0.0.4-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -43,7 +43,7 @@
             <plugin>
                 <groupId>com.github.souzen</groupId>
                 <artifactId>light-jpf-maven-plugin</artifactId>
-                <version>0.0.3</version>
+                <version>0.0.4-SNAPSHOT</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
