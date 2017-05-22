@@ -42,7 +42,7 @@ import static java.util.stream.Collectors.toList;
 /**
  * Created by souzen on 25.03.2017.
  */
-public class IdeClasspathPluginRepository extends ClasspathPluginRepository implements PluginRepository {
+public class IdeClasspathPluginRepository extends BasePluginRepository implements PluginRepository {
 
     private static final Logger LOG = LoggerFactory.getLogger(IdeClasspathPluginRepository.class.getSimpleName());
 
@@ -66,20 +66,20 @@ public class IdeClasspathPluginRepository extends ClasspathPluginRepository impl
             }
 
             // extract classpath dirs if it was packed to jar file
-            classpathUris.addAll(addPackedClasspathDirs(classpathUris).collect(toList()));
+            List<File> packagedPath = addPackedClasspathDirs(classpathUris).collect(toList());
+
+            // Load other project dependencies from classes dir
+            packagedPath.stream()
+                    .filter(f -> f.isDirectory())
+                    .flatMap(this::loadDirEntries)
+                    .forEach(this::addEntry);
+
+            // Load jar file dependencies from classpath
+            packagedPath.stream()
+                    .filter(f -> f.isFile())
+                    .flatMap(this::loadJarEntries)
+                    .forEach(this::addEntry);
         }
-
-        // Load other project dependencies from classes dir
-        classpathUris.stream()
-                .filter(f -> f.isDirectory())
-                .flatMap(this::loadDirEntries)
-                .forEach(this::addEntry);
-
-        // Load jar file dependencies from classpath
-        classpathUris.stream()
-                .filter(f -> f.isFile())
-                .flatMap(this::loadJarEntries)
-                .forEach(this::addEntry);
     }
 
     private Stream<File> addPackedClasspathDirs(List<File> dirs) {
