@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.souzen</groupId>
     <artifactId>light-jpf-parent</artifactId>
-    <version>0.0.5-SNAPSHOT</version>
+    <version>0.0.5</version>
     <packaging>pom</packaging>
 
     <name>light-jpf-parent</name>
@@ -110,7 +110,7 @@
         <connection>scm:git:git://github.com/souzen/light-jpf.git</connection>
         <developerConnection>scm:git:git@github.com:souzen/light-jpf.git</developerConnection>
         <url>http://github.com/souzen/light-jpf/tree/master</url>
-        <tag>HEAD</tag>
+        <tag>light-jpf-parent-0.0.5</tag>
     </scm>
 
     <distributionManagement>
