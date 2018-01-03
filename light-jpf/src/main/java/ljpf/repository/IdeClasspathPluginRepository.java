@@ -16,7 +16,6 @@
 
 package ljpf.repository;
 
-import com.google.common.collect.Lists;
 import ljpf.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +28,7 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.jar.JarFile;
@@ -38,6 +38,8 @@ import java.util.stream.Stream;
 
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.toList;
+import static ljpf.repository.PluginDescriptorParser.matchesDescriptorExtension;
+import static ljpf.repository.PluginDescriptorParser.parseDescriptorFile;
 
 /**
  * Created by souzen on 25.03.2017.
@@ -50,7 +52,7 @@ public class IdeClasspathPluginRepository extends BasePluginRepository implement
 
     public IdeClasspathPluginRepository() {
         ClassLoader systemClassLoader = ClassLoader.getSystemClassLoader();
-        List<File> classpathUris = Lists.newArrayList();
+        List<File> classpathUris = new ArrayList<>();
 
         if ((systemClassLoader instanceof URLClassLoader)) {
 
@@ -70,13 +72,13 @@ public class IdeClasspathPluginRepository extends BasePluginRepository implement
 
             // Load other project dependencies from classes dir
             packagedPath.stream()
-                    .filter(f -> f.isDirectory())
+                    .filter(File::isDirectory)
                     .flatMap(this::loadDirEntries)
                     .forEach(this::addEntry);
 
             // Load jar file dependencies from classpath
             packagedPath.stream()
-                    .filter(f -> f.isFile())
+                    .filter(File::isFile)
                     .flatMap(this::loadJarEntries)
                     .forEach(this::addEntry);
         }
@@ -116,7 +118,7 @@ public class IdeClasspathPluginRepository extends BasePluginRepository implement
     private Stream<PluginRepositoryEntry> loadDirEntries(File file) {
         return getDirDescriptors(file).map(descriptor -> new PluginRepositoryEntry(descriptor, new PluginClasspath(
                 file.getPath(),
-                Lists.newArrayList(file.getPath()),
+                List.of(file.getPath()),
                 Collections.EMPTY_LIST,
                 Collections.EMPTY_LIST)));
     }
@@ -125,14 +127,14 @@ public class IdeClasspathPluginRepository extends BasePluginRepository implement
         return getJarDescriptors(file).map(descriptor -> new PluginRepositoryEntry(descriptor, new PluginClasspath(
                 file.getPath(),
                 Collections.EMPTY_LIST,
-                Lists.newArrayList(file.getPath()),
+                List.of(file.getPath()),
                 Collections.EMPTY_LIST)));
     }
 
     private Stream<PluginDescriptor> getDirDescriptors(File file) {
         return stream(file.listFiles())
                 .filter(f -> matchesDescriptorExtension(f.getName()))
-                .map(this::parseDescriptorFile)
+                .map(PluginDescriptorParser::parseDescriptorFile)
                 .filter(PluginDescriptorParser::valid)
                 .map(PluginDescriptorParser::parse);
     }

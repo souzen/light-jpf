@@ -19,7 +19,7 @@ package ljpf.examples.app;
 import ljpf.PluginClassLoaderFactory;
 import ljpf.PluginManager;
 import ljpf.examples.common.ExampleConfig;
-import ljpf.impl.DefaultPluginManager;
+import ljpf.DefaultPluginManager;
 import ljpf.loader.ParentLastClassLoaderFactory;
 import ljpf.repository.ClasspathPluginRepository;
 import ljpf.repository.DirPluginRepository;
@@ -39,10 +39,11 @@ public class App {
     public void init() {
         LOG.info("Initializing...");
 
-        MultiPluginRepository pluginRepository = new MultiPluginRepository();
-        pluginRepository.addRepository(new ClasspathPluginRepository());
-        pluginRepository.addRepository(new DirPluginRepository("plugins"));
-        pluginRepository.addRepository(new DirPluginRepository("examples/app/target/plugins"));
+        MultiPluginRepository pluginRepository = new MultiPluginRepository(
+                new ClasspathPluginRepository(),
+                new DirPluginRepository("plugins"),
+                new DirPluginRepository("examples/app/target/plugins")
+        );
 
         PluginClassLoaderFactory classLoaderFactory = new ParentLastClassLoaderFactory();
 

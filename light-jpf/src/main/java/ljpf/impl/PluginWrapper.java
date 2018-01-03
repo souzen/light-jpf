@@ -23,7 +23,7 @@ import java.lang.reflect.Constructor;
 /**
  * Created by souzen on 25.03.2017.
  */
-class PluginWrapper {
+public class PluginWrapper {
 
     private enum State {
         CREATED,
@@ -38,7 +38,7 @@ class PluginWrapper {
     private final PluginClasspath classpath;
     private final ClassLoader classLoader;
 
-    PluginWrapper(PluginDescriptor descriptor, PluginClasspath classpath, ClassLoader classLoader) {
+    public PluginWrapper(PluginDescriptor descriptor, PluginClasspath classpath, ClassLoader classLoader) {
         this.state = State.CREATED;
         this.descriptor = descriptor;
         this.classpath = classpath;
@@ -49,7 +49,7 @@ class PluginWrapper {
         return descriptor;
     }
 
-    void init(final PluginConfig config) {
+    public void init(final PluginConfig config) {
         if (state != State.CREATED)
             throw new PluginException(descriptor.getId(), String.format("Invalid Plugin State - %s", state));
 
@@ -71,7 +71,7 @@ class PluginWrapper {
         }
     }
 
-    void load() {
+    public void load() {
         if (state != State.INITIALIZED)
             throw new PluginException(descriptor.getId(), String.format("Invalid Plugin State - %s", state));
 
@@ -85,7 +85,7 @@ class PluginWrapper {
         }
     }
 
-    void unload() {
+    public void unload() {
         if (state != State.LOADED)
             throw new PluginException(descriptor.getId(), String.format("Invalid Plugin State - %s", state));
 

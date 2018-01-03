@@ -16,25 +16,17 @@
 
 package ljpf.repository;
 
-import com.google.common.collect.Maps;
-import ljpf.PluginDescriptor;
+
 import ljpf.PluginException;
 import ljpf.PluginRepository;
 import ljpf.PluginRepositoryEntry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
-import java.util.Properties;
-import java.util.jar.JarEntry;
-import java.util.jar.JarFile;
-import java.util.regex.Pattern;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by souzen on 25.03.2017.
@@ -46,7 +38,7 @@ public class BasePluginRepository implements PluginRepository {
     private final Map<String, PluginRepositoryEntry> repositoryEntryMap;
 
     public BasePluginRepository() {
-        repositoryEntryMap = Maps.newConcurrentMap();
+        repositoryEntryMap = new ConcurrentHashMap<>();
     }
 
     @Override
@@ -70,37 +62,5 @@ public class BasePluginRepository implements PluginRepository {
 
         repositoryEntryMap.put(entry.getDescriptor().getId(), entry);
         LOG.debug("Plugin added: {} {}", entry.getDescriptor().getId(), entry.getClasspath().getPath());
-    }
-
-    protected Properties parseDescriptorFile(File file) {
-        Properties properties = new Properties();
-
-        try {
-            final InputStream inputStream = new FileInputStream(file);
-            properties.load(inputStream);
-
-        } catch (IOException e) {
-            LOG.warn("Could not parse plugin descriptor {}", file.getAbsolutePath());
-        }
-
-        return properties;
-    }
-
-    protected Properties parseDescriptorFile(JarFile jar, JarEntry jarEntry) {
-        Properties properties = new Properties();
-
-        try {
-            final InputStream inputStream = jar.getInputStream(jarEntry);
-            properties.load(inputStream);
-
-        } catch (IOException e) {
-            LOG.warn("Could not parse plugin descriptor {}", jar.getName());
-        }
-
-        return properties;
-    }
-
-    protected boolean matchesDescriptorExtension(String filename) {
-        return Pattern.matches(".*" + PluginDescriptor.FILE_EXTENSION, filename);
     }
 }

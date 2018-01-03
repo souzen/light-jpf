@@ -16,10 +16,10 @@
 
 package ljpf.repository;
 
-import com.google.common.collect.Lists;
 import ljpf.PluginRepository;
 import ljpf.PluginRepositoryEntry;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -33,24 +33,16 @@ public class MultiPluginRepository implements PluginRepository {
     private final List<PluginRepository> pluginRepositories;
 
     public MultiPluginRepository(PluginRepository... pluginRepositories) {
-        this.pluginRepositories = Lists.newArrayList(pluginRepositories);
-    }
-
-    public void addRepository(final PluginRepository pluginRepository) {
-        pluginRepositories.add(pluginRepository);
-    }
-
-    public void removeRepository(final PluginRepository pluginRepository) {
-        pluginRepositories.remove(pluginRepository);
+        this.pluginRepositories = List.of(pluginRepositories);
     }
 
     @Override
-    public boolean containsPlugin(String id) {
+    public boolean containsPlugin(final String id) {
         return pluginRepositories.stream().anyMatch(r -> r.containsPlugin(id));
     }
 
     @Override
-    public PluginRepositoryEntry getPlugin(String id) {
+    public PluginRepositoryEntry getPlugin(final String id) {
         return pluginRepositories.stream().filter(r -> r.containsPlugin(id)).findFirst().map(r -> r.getPlugin(id)).orElse(null);
     }
 

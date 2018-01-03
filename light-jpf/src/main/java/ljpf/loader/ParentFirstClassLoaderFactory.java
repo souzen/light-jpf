@@ -62,11 +62,8 @@ public class ParentFirstClassLoaderFactory implements PluginClassLoaderFactory {
             URLClassLoader cl = (URLClassLoader) ClassLoader.getSystemClassLoader();
             Method method = URLClassLoader.class.getDeclaredMethod("addURL", new Class[]{URL.class});
 
-            final boolean accessible = method.isAccessible();
-
             method.setAccessible(true);
             method.invoke(cl, new Object[]{url});
-            method.setAccessible(accessible);
 
         } catch (MalformedURLException e) {
             // NOOP

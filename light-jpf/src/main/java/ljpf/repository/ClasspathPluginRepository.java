@@ -16,7 +16,6 @@
 
 package ljpf.repository;
 
-import com.google.common.collect.Lists;
 import ljpf.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,12 +26,15 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.jar.JarFile;
 import java.util.stream.Stream;
 
 import static java.util.Arrays.stream;
+import static ljpf.repository.PluginDescriptorParser.matchesDescriptorExtension;
+import static ljpf.repository.PluginDescriptorParser.parseDescriptorFile;
 
 /**
  * Created by souzen on 25.03.2017.
@@ -48,7 +50,7 @@ public class ClasspathPluginRepository extends BasePluginRepository implements P
 
             URLClassLoader cl = (URLClassLoader) systemClassLoader;
 
-            List<File> classpathUris = Lists.newArrayList();
+            List<File> classpathUris = new ArrayList<>();
             for (URL url : cl.getURLs()) {
                 try {
                     final URI uri = url.toURI();
@@ -60,13 +62,13 @@ public class ClasspathPluginRepository extends BasePluginRepository implements P
 
             // Load other project dependencies from classes dir
             classpathUris.stream()
-                    .filter(f -> f.isDirectory())
+                    .filter(File::isDirectory)
                     .flatMap(this::loadDirEntries)
                     .forEach(this::addEntry);
 
             // Load jar file dependencies from classpath
             classpathUris.stream()
-                    .filter(f -> f.isFile())
+                    .filter(File::isFile)
                     .flatMap(this::loadJarEntries)
                     .forEach(this::addEntry);
         }
@@ -75,7 +77,7 @@ public class ClasspathPluginRepository extends BasePluginRepository implements P
     private Stream<PluginRepositoryEntry> loadDirEntries(File file) {
         return getDirDescriptors(file).map(descriptor -> new PluginRepositoryEntry(descriptor, new PluginClasspath(
                 file.getPath(),
-                Lists.newArrayList(file.getPath()),
+                List.of(file.getPath()),
                 Collections.EMPTY_LIST,
                 Collections.EMPTY_LIST)));
     }
@@ -84,14 +86,14 @@ public class ClasspathPluginRepository extends BasePluginRepository implements P
         return getJarDescriptors(file).map(descriptor -> new PluginRepositoryEntry(descriptor, new PluginClasspath(
                 file.getPath(),
                 Collections.EMPTY_LIST,
-                Lists.newArrayList(file.getPath()),
+                List.of(file.getPath()),
                 Collections.EMPTY_LIST)));
     }
 
     private Stream<PluginDescriptor> getDirDescriptors(File file) {
         return stream(file.listFiles())
                 .filter(f -> matchesDescriptorExtension(f.getName()))
-                .map(this::parseDescriptorFile)
+                .map(PluginDescriptorParser::parseDescriptorFile)
                 .filter(PluginDescriptorParser::valid)
                 .map(PluginDescriptorParser::parse);
     }

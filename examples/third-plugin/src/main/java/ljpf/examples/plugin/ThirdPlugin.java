@@ -38,7 +38,7 @@ public class ThirdPlugin implements Plugin {
     private ExampleConfig config;
 
     @Override
-    public void init(PluginConfig config) {
+    public void init(final PluginConfig config) {
         if (config instanceof ExampleConfig) {
             this.config = (ExampleConfig) config;
         }

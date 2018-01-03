@@ -14,19 +14,18 @@
  *    limitations under the License.
  */
 
-package ljpf.impl;
+package ljpf;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import ljpf.*;
+import ljpf.impl.PluginWrapper;
 import ljpf.loader.ParentLastClassLoaderFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import static java.util.stream.Collectors.toList;
 
@@ -49,8 +48,8 @@ public class DefaultPluginManager implements PluginManager {
     public DefaultPluginManager(PluginRepository repository, PluginClassLoaderFactory pluginClassLoaderFactory) {
         this.repository = repository;
         this.pluginClassLoaderFactory = pluginClassLoaderFactory;
-        this.pluginWrappers = Collections.synchronizedMap(Maps.newLinkedHashMap());
-        this.loadedPlugins = Lists.newCopyOnWriteArrayList();
+        this.pluginWrappers = new ConcurrentHashMap<>();
+        this.loadedPlugins = new CopyOnWriteArrayList<>();
     }
 
     @Override

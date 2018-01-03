@@ -23,9 +23,6 @@ import ljpf.versions.Version;
  */
 public class PluginDescriptor {
 
-    public static final String FILE_EXTENSION = "plugin";
-    public static final String PLUGIN_LIB_DIR = "lib";
-
     private final String id;
     private final Version version;
     private final String pluginClass;
